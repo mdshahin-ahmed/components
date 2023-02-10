@@ -1,25 +1,24 @@
 import React from "react";
 
-const Table = ({ data }) => {
+const Table = ({ data, config }) => {
+  const renderHeaders = config.map((column) => {
+    return <th key={column.label}>{column.label}</th>;
+  });
+
   const renderRows = data.map((fruit) => {
-    const { name, color, score } = fruit;
     return (
-      <tr key={name}>
-        <td>{name}</td>
-        <td>{color}</td>
-        <td>{score}</td>
+      <tr className="border-b" key={fruit.name}>
+        <td className="p-3">{config[0].render(fruit)}</td>
+        <td className="p-3">{config[1].render(fruit)}</td>
+        <td className="p-3">{config[2].render(fruit)}</td>
       </tr>
     );
   });
 
   return (
-    <table>
+    <table className="table-auto border-spacing-2">
       <thead>
-        <tr>
-          <th>Fruit</th>
-          <th>Color</th>
-          <th>Score</th>
-        </tr>
+        <tr className="border-b-2">{renderHeaders}</tr>
       </thead>
       <tbody>{renderRows}</tbody>
     </table>
