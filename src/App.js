@@ -3,6 +3,7 @@ import Route from "./components/Route";
 import Sidebar from "./components/Sidebar";
 import AccordionPage from "./pages/AccordionPage";
 import ButtonPage from "./pages/ButtonPage";
+import CountPage from "./pages/CountPage";
 import DropdownPage from "./pages/DropdownPage";
 import ModalPage from "./pages/ModalPage";
 import TablePage from "./pages/TablePage";
@@ -26,6 +27,9 @@ const App = () => {
         </Route>
         <Route path="/table">
           <TablePage />
+        </Route>
+        <Route path="/counter">
+          <CountPage initialCount={10} />
         </Route>
       </div>
     </div>
