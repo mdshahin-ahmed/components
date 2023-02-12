@@ -1,16 +1,24 @@
-import React from "react";
+import { Fragment } from "react";
 
-const Table = ({ data, config }) => {
+const Table = ({ data, config, keyFn }) => {
   const renderHeaders = config.map((column) => {
+    if (column.header) {
+      return <Fragment key={column.label}>{column.header()}</Fragment>;
+    }
     return <th key={column.label}>{column.label}</th>;
   });
 
-  const renderRows = data.map((fruit) => {
+  const renderRows = data.map((rowData) => {
+    const renderCells = config.map((column) => {
+      return (
+        <td className="p-2 " key={column.label}>
+          {column.render(rowData)}
+        </td>
+      );
+    });
     return (
-      <tr className="border-b" key={fruit.name}>
-        <td className="p-3">{config[0].render(fruit)}</td>
-        <td className="p-3">{config[1].render(fruit)}</td>
-        <td className="p-3">{config[2].render(fruit)}</td>
+      <tr className="border-b" key={keyFn(rowData)}>
+        {renderCells}
       </tr>
     );
   });
